@@ -1,2 +1,2 @@
-Name                GitHub user ID
-Anhelina Krysak     AnhelinaKrysak
+(Anhelina Krysak - AnhelinaKrysak)
+
