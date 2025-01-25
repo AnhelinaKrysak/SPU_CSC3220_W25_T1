@@ -8,8 +8,8 @@ CRUD Operations
         -Publication Year, ISBN, Reading Status
      -Retrieve: Search and filter books by various criteria:
         -Author, Genre, Reading Status
-        -Update: Modify book details and reading progress.
-        -Delete: Remove books from the library.
+     -Update: Modify book details and reading progress.
+     -Delete: Remove books from the library.
 Interface Design
      - Text-Based Console Interface:
      - Offline Usability 
@@ -34,12 +34,12 @@ Database Design/Schema Overview
        - Status (read/unread)
        - Notes
 Benefits of Book Buddy
-     - offline Access: No reliance on interet conncetivity 
+     - Offline Access: No reliance on interet conncetivity 
      - Lightweight: Minimal system requirements.
      - Organized Collection: Easy tracking of books and reading progress.
      - Personalized: Tailored for individual users, with customizable notes and statistics.
 
 Why choose BookBuddy?
-     -efficiency
+     -Efficiency
      -Simplicity 
      -Track reading Progress
