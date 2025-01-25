@@ -1,0 +1,45 @@
+What is Book Buddy?
+     - A personal, offline library management application for book lovers
+     - Helps organize, track, and manage books in a non-networked environment
+     - Designed to be lightweight and user-friendly, built with C++
+CRUD Operations 
+     - Create: Add new books with details like:
+        -Title, Author, Genre
+        -Publication Year, ISBN, Reading Status
+     -Retrieve: Search and filter books by various criteria:
+        -Author, Genre, Reading Status
+        -Update: Modify book details and reading progress.
+        -Delete: Remove books from the library.
+Interface Design
+     - Text-Based Console Interface:
+     - Offline Usability 
+Technical overview
+     - Programming Language
+       - C++ for fast and efficient implementation 
+     - DataBase
+       - SQLite: Lightweight relational database for offline data storage
+     - Key Libraries 
+       - SQLite C++ library for database interaction.
+       - Standard Template Library (STL) for additional functionality.
+     - Data Backup
+       - Save and load data via file handling (e.g., CSV or binary format).
+Database Design/Schema Overview
+     - Books Table 
+       - ID (Primary Key)
+       - Title
+       - Author
+       - Genre
+       - Publication year
+       - ISBN 
+       - Status (read/unread)
+       - Notes
+Benefits of Book Buddy
+     - offline Access: No reliance on interet conncetivity 
+     - Lightweight: Minimal system requirements.
+     - Organized Collection: Easy tracking of books and reading progress.
+     - Personalized: Tailored for individual users, with customizable notes and statistics.
+
+Why choose BookBuddy?
+     -efficiency
+     -Simplicity 
+     -Track reading Progress
