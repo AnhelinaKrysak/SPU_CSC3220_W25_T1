@@ -6,10 +6,16 @@ CRUD Operations
      - Create: Add new books with details like:
         -Title, Author, Genre
         -Publication Year, ISBN, Reading Status
+        - Personal Notes and Tags
      -Retrieve: Search and filter books by various criteria:
         -Author, Genre, Reading Status
+        -Full-text search for book notes
      -Update: Modify book details and reading progress.
      -Delete: Remove books from the library.
+Additional Functionality
+     - Recommendations: Based on user’s reading history, suggest books they might like.
+     - Trading System (Optional): Allow users to track books they want to lend or borrow.
+     - Enhanced Notes System: Users can add personal notes to books and retrieve them via search.
 Interface Design
      - Text-Based Console Interface:
      - Offline Usability 
@@ -33,6 +39,20 @@ Database Design/Schema Overview
        - ISBN 
        - Status (read/unread)
        - Notes
+     - Author Table 
+       - Author_ID (primary Key)
+       - name
+     - Genres Table 
+       - Genre_ID (primary key)
+       - Genre_name
+     - UserNotes Table
+       - note_ID (Primary Key)
+       - book_ID (Foreign Key to Books)
+       - note_text
+     - Recommendations Table 
+       - recommendation_ID (Primary Key)
+       - book_ID (foreign Key to Books)
+       - recommended_book_ID (Foreign Key to Books)
 Benefits of Book Buddy
      - Offline Access: No reliance on interet conncetivity 
      - Lightweight: Minimal system requirements.
