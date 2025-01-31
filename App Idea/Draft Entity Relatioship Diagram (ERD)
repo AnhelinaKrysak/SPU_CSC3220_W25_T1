@@ -1,61 +1,36 @@
 Crawford Notation
 
-Entities:
-  - Product 
-    - Attributes: Product ID (PK), Name, Description, Price, QuantityInStock
-  - Supplier
-    - Attributes: SupplierID (PK), Name, ContactName, Phone, Address
-  - Order
-    - Attributes: OrderID (PK), OrderDate, CustomerName, ShippingAddress
-  - OrderItem
-    - Attributes: OrderItemID (PK), Quantity, PriceAtOrder
+Books (book_ID as PK)
+  - Title 
+  - Author_ID (FK to Authors)
+  - Genre_ID (FK to Genres)
+  - Publication Year
+  - ISBN
+  - Status (Read/Unread)
+  - Notes (Stored separately in UserNotes)
 Relationships:
-  - Product Supplier 
-    - A product can have multiple suppliers (many-to-many)
-    - Relationship: SuppliedBy
-    - The intersection entity: ProductSupplier with ProductID and SupplierID as foreign keys.
-  - Order OrderItem
-    - An order can contain multiple order items (one-to-many)
-    - Relationship: Contains
-    - The foreign key: OrderID in OrderItem
-  - Product OrderItem
-    - A product can appear in many order items (many-to-many)
-    - Relationship: Includes
-    - The foreign key: ProductID in OrderItem
+  - A Book has one Author (Many-to-One).
+  - A Book belongs to one Genre (Many-to-One).
+  - A Book can have many UserNotes (One-to-Many).
+  - A Book can have many Recommendations (One-to-Many).
+Authors (author_ID as PK)
+  - Name
+Relationships: 
+  - An Author can write multiple Books (One-to-Many).
+Genres (genre_ID as PK)
+  - Genre Name
 
-ERD diagram: 
+Relationships:
+  - A Genre can have multiple Books (One-to-Many).
 
-+------------+           +----------------+
-|  Product   |           |   Supplier     |
-|------------|           |----------------|
-| ProductID (PK)   |<---->| SupplierID (PK) |
-| Name         |           | Name            |
-| Description  |           | ContactName     |
-| Price        |           | Phone           |
-| QuantityInStock|        | Address         |
-+------------+           +----------------+
-       |                        |
-       | SuppliedBy (M:N)        |
-       |                        |
-+--------------------+         |
-| ProductSupplier    |<---------|
-|--------------------|
-| ProductID (FK)     |
-| SupplierID (FK)    |
-+--------------------+ 
+UserNotes (note_ID as PK)
+  - Book_ID (FK to Books)
+  - Note Text
+Relationships:
+  - A Book can have multiple UserNotes (One-to-Many).
+Recommendations (recommendation_ID as PK)
+  - Book_ID (FK to Books)
+  - Recommended_Book_ID (FK to Books)
 
-        |
-        |
- Contains (1:M)    
-        |
-        v
-+------------+           +------------+
-|   Order    |<----+----| OrderItem  |
-|------------|           |------------|
-| OrderID (PK)         | OrderItemID (PK) |
-| OrderDate           | Quantity         |
-| CustomerName        | PriceAtOrder     |
-| ShippingAddress     | ProductID (FK)   |
-+------------+           | OrderID (FK)     |
-                         +------------+
-
+Relationships:
+  - A Book can have multiple Recommended Books (Self-referencing Many-to-Many).
