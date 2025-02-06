@@ -1,0 +1,36 @@
+Crowfoot Notation
+
+Books (book_ID as PK)
+  - Title 
+  - Author_ID (FK to Authors)
+  - Genre_ID (FK to Genres)
+  - Publication Year
+  - ISBN
+  - Status (Read/Unread)
+  - Notes (Stored separately in UserNotes)
+Relationships:
+  - A Book has one Author (Many-to-One).
+  - A Book belongs to one Genre (Many-to-One).
+  - A Book can have many UserNotes (One-to-Many).
+  - A Book can have many Recommendations (One-to-Many).
+Authors (author_ID as PK)
+  - Name
+Relationships: 
+  - An Author can write multiple Books (One-to-Many).
+Genres (genre_ID as PK)
+  - Genre Name
+
+Relationships:
+  - A Genre can have multiple Books (One-to-Many).
+
+UserNotes (note_ID as PK)
+  - Book_ID (FK to Books)
+  - Note Text
+Relationships:
+  - A Book can have multiple UserNotes (One-to-Many).
+Recommendations (recommendation_ID as PK)
+  - Book_ID (FK to Books)
+  - Recommended_Book_ID (FK to Books)
+
+Relationships:
+  - A Book can have multiple Recommended Books (Self-referencing Many-to-Many).
