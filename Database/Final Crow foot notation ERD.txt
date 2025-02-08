@@ -1,0 +1,47 @@
++------------------+          +----------------+          +---------------+
+|     Books        |          |    Authors     |          |    Genres     |
+|----------------  |          |----------------|          |---------------|
+| book_ID (PK)     |--[M]--+  | author_ID (PK) | +--[M]-- | genre_ID (PK) |
+| title            |        | | name           |          | genre_name    |
+| pub_year         |        | +---------------+|          +---------------+
+| ISBN             |        |                  |
+| status           |        |                  |
++------------------+        |                  |
+                            |                  |
+  +------------------+      |                  |
+  |   BookAuthors    |      |                  |
+  |------------------|      |                  |
+  | book_ID (PK,FK)  |--[M]+                   |
+  | author_ID (PK,FK)|      |                  |
+  +------------------+      |                  |
+                            |                  |
+                            |                  |
+                            |                  |
+                            |                  |
+                            v                  v
+  +------------------+       +-----------------------------+
+  |   BookGenres     |       | BookRecommendations         | 
+  |------------------|       |-----------------------------|
+  | book_ID (PK,FK)  |--[M]--| book_ID (PK,FK)             |
+  | genre_ID (PK,FK) |       | recommended_book_ID (PK,FK) |
+  +------------------+       +-----------------------------+
+
+         |
+         v
++------------------+
+|    UserNotes     |
+|----------------  |
+| note_ID (PK)     |
+| book_ID (FK)     |
+| note_text        |
++------------------+
+
+Legend:
+- **PK** = Primary Key
+- **FK** = Foreign Key
+- **[M]** = Many-to-Many Relationship (via junction tables)
+- **One-to-Many** between Books and UserNotes
+- **Many-to-Many** between:
+  - Books ↔ Authors (via BookAuthors)
+  - Books ↔ Genres (via BookGenres)
+  - Books ↔ Recommendations (via BookRecommendations)
