@@ -1,1 +1,70 @@
+Crowfoot Notation
 
+Books (book_ID as PK)
+  - Title 
+  - Author_ID (FK to Authors)
+  - Genre_ID (FK to Genres)
+  - Publication Year
+  - ISBN
+  - Status (Read/Unread)
+  - Notes (Stored separately in UserNotes)
+Relationships:
+
+    - A Book can have multiple Authors (Many-to-Many, via BookAuthors).
+    - A Book can belong to multiple Genres (Many-to-Many, via BookGenres).
+    - A Book can have multiple UserNotes (One-to-Many).
+    - A Book can have multiple Recommendations (Many-to-Many, via BookRecommendations).
+Authors (author_ID as PK)
+
+    Name
+
+Relationships:
+
+    An Author can write multiple Books (Many-to-Many, via BookAuthors).
+
+Genres (genre_ID as PK)
+
+    Genre Name
+
+Relationships:
+
+    A Genre can have multiple Books (Many-to-Many, via BookGenres).
+
+BookAuthors (book_ID as PK, author_ID as PK) (Junction Table)
+
+    Book_ID (FK to Books)
+    Author_ID (FK to Authors)
+
+Relationships:
+
+    A Book can have multiple Authors (Many-to-Many).
+    An Author can write multiple Books (Many-to-Many).
+
+BookGenres (book_ID as PK, genre_ID as PK) (Junction Table)
+
+    Book_ID (FK to Books)
+    Genre_ID (FK to Genres)
+
+Relationships:
+
+    A Book can belong to multiple Genres (Many-to-Many).
+    A Genre can have multiple Books (Many-to-Many).
+
+UserNotes (note_ID as PK)
+
+    Book_ID (FK to Books)
+    Note Text
+
+Relationships:
+
+    A Book can have multiple UserNotes (One-to-Many).
+
+BookRecommendations (book_ID as PK, recommended_book_ID as PK) (Junction Table)
+
+    Book_ID (FK to Books)
+    Recommended_Book_ID (FK to Books)
+
+Relationships:
+
+    A Book can have multiple Recommended Books (Many-to-Many).
+    A Recommended Book can be linked to multiple Books (Many-to-Many).
