@@ -1,0 +1,84 @@
+-- Books Table
+CREATE TABLE Books (
+    book_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    title TEXT NOT NULL,
+    author_id INTEGER NOT NULL,
+    genre_id INTEGER NOT NULL,
+    publication_year INTEGER,
+    isbn TEXT UNIQUE,
+    status TEXT CHECK(status IN ('read', 'unread')) NOT NULL,
+    FOREIGN KEY (author_id) REFERENCES Authors(author_id),
+    FOREIGN KEY (genre_id) REFERENCES Genres(genre_id)
+);
+
+-- Authors Table
+CREATE TABLE Authors (
+    author_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT UNIQUE NOT NULL
+);
+
+-- Genres Table
+CREATE TABLE Genres (
+    genre_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    genre_name TEXT UNIQUE NOT NULL
+);
+
+-- UserNotes Table
+CREATE TABLE UserNotes (
+    note_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    book_id INTEGER NOT NULL,
+    note_text TEXT NOT NULL,
+    FOREIGN KEY (book_id) REFERENCES Books(book_id) ON DELETE CASCADE
+);
+
+-- Recommendations Table (Self-referencing Many-to-Many)
+CREATE TABLE Recommendations (
+    recommendation_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    book_id INTEGER NOT NULL,
+    recommended_book_id INTEGER NOT NULL,
+    FOREIGN KEY (book_id) REFERENCES Books(book_id) ON DELETE CASCADE,
+    FOREIGN KEY (recommended_book_id) REFERENCES Books(book_id) ON DELETE CASCADE,
+    UNIQUE (book_id, recommended_book_id) -- Prevents duplicate recommendations
+);
+-- Insert an Author
+INSERT INTO Authors (name) VALUES ('J.K. Rowling');
+
+-- Insert a Genre
+INSERT INTO Genres (genre_name) VALUES ('Fantasy');
+
+-- Insert a Book
+INSERT INTO Books (title, author_id, genre_id, publication_year, isbn, status)
+VALUES ('Harry Potter and the Sorcerer''s Stone', 
+        1, -- Assuming author_id 1 is J.K. Rowling
+        1, -- Assuming genre_id 1 is Fantasy
+        1997, 
+        '978-0439708180', 
+        'read');
+
+-- Insert a Note for a Book
+INSERT INTO UserNotes (book_id, note_text) 
+VALUES (1, 'Loved the magical world!');
+
+-- Insert a Recommendation
+INSERT INTO Recommendations (book_id, recommended_book_id) 
+VALUES (1, 2); -- Assuming book_id 2 exists
+
+-- Retrieve all books with author and genre information
+SELECT Books.title, Authors.name AS author, Genres.genre_name, Books.status
+FROM Books
+JOIN Authors ON Books.author_id = Authors.author_id
+JOIN Genres ON Books.genre_id = Genres.genre_id;
+
+-- Search Books by Author
+SELECT title FROM Books 
+WHERE author_id = (SELECT author_id FROM Authors WHERE name = 'J.K. Rowling');
+
+-- Search Notes for a Book
+SELECT note_text FROM UserNotes WHERE book_id = 1;
+
+-- Get Recommendations for a Book
+SELECT B2.title AS Recommended_Book
+FROM Recommendations 
+JOIN Books AS B1 ON Recommendations.book_id = B1.book_id
+JOIN Books AS B2 ON Recommendations.recommended_book_id = B2.book_id
+WHERE B1.title = 'Harry Potter and the Sorcerer''s Stone';
