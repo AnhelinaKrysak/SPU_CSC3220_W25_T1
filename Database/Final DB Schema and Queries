@@ -1,0 +1,60 @@
+-- Books Table
+CREATE TABLE Books (
+    book_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    title TEXT NOT NULL,
+    publication_year INTEGER,
+    isbn TEXT UNIQUE,
+    status TEXT CHECK(status IN ('read', 'unread')) NOT NULL
+);
+
+-- Authors Table
+CREATE TABLE Authors (
+    author_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT UNIQUE NOT NULL
+);
+
+-- Bridge Table: Books_Authors (Many-to-Many)
+CREATE TABLE Books_Authors (
+    book_id INTEGER NOT NULL,
+    author_id INTEGER NOT NULL,
+    PRIMARY KEY (book_id, author_id),
+    FOREIGN KEY (book_id) REFERENCES Books(book_id) ON DELETE CASCADE,
+    FOREIGN KEY (author_id) REFERENCES Authors(author_id) ON DELETE CASCADE
+);
+
+-- Genres Table
+CREATE TABLE Genres (
+    genre_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    genre_name TEXT UNIQUE NOT NULL
+);
+
+-- Bridge Table: Books_Genres (Many-to-Many)
+CREATE TABLE Books_Genres (
+    book_id INTEGER NOT NULL,
+    genre_id INTEGER NOT NULL,
+    PRIMARY KEY (book_id, genre_id),
+    FOREIGN KEY (book_id) REFERENCES Books(book_id) ON DELETE CASCADE,
+    FOREIGN KEY (genre_id) REFERENCES Genres(genre_id) ON DELETE CASCADE
+);
+
+-- UserNotes Table
+CREATE TABLE UserNotes (
+    note_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    book_id INTEGER NOT NULL,
+    note_text TEXT NOT NULL,
+    FOREIGN KEY (book_id) REFERENCES Books(book_id) ON DELETE CASCADE
+);
+
+-- Recommendations Table (Many-to-Many)
+CREATE TABLE Recommendations (
+    recommendation_group_id INTEGER PRIMARY KEY AUTOINCREMENT
+);
+
+-- Bridge Table: Recommendations_Books
+CREATE TABLE Recommendations_Books (
+    recommendation_group_id INTEGER NOT NULL,
+    book_id INTEGER NOT NULL,
+    PRIMARY KEY (recommendation_group_id, book_id),
+    FOREIGN KEY (recommendation_group_id) REFERENCES Recommendations(recommendation_group_id) ON DELETE CASCADE,
+    FOREIGN KEY (book_id) REFERENCES Books(book_id) ON DELETE CASCADE
+);
