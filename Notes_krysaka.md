@@ -1,2 +1,3 @@
 Anhelina Krysak  
-Entity Relationship Diagram (ERD): completed the diagram interface
+Entity Relationship Diagram (ERD): completed the diagram interface  
+Draft Persona and Moodboard
